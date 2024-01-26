@@ -11,7 +11,7 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'SonarScanner 4.0'
+                    def scannerHome = tool 'hive-sonarqube'
                     withSonarQubeEnv('hive-sonar') {
                         bat "${scannerHome}/bin/sonar-scanner"
                     }
