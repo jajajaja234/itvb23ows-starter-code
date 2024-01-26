@@ -7,6 +7,16 @@ pipeline {
     }
 
     stages {
+
+        stage('SonarQube') {
+            steps {
+                script { scannerHome = tool 'SonarQube Scanner' }
+                withSonarQubeEnv('SonarQube') {
+                bat "${scannerHome}/bin/sonar-scanner-Dsonar.projectKey=[key]"
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Building the PHP application'
