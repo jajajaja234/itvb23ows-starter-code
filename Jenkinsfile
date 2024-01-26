@@ -1,62 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-        // Definieer de locatie eenmaal bovenaan de pipeline
-        WORK_DIR = 'C:\\Users\\Luc\\Documents\\hanze-ICT\\Ontwikkelstraten\\itvb23ows-starter-code'
-    }
-
     stages {
 
-        stage('SonarQube') {
-            steps {
-                script { scannerHome = tool 'SonarQube Scanner' }
-                withSonarQubeEnv('SonarQube') {
-                bat "${scannerHome}/bin/sonar-scanner-Dsonar.projectKey=[key]"
-                }
-            }
-        }
-
-        stage('Build') {
+        stage('Scan'){
             steps {
-                echo 'Building the PHP application'
-                dir(WORK_DIR) {
-                    bat 'docker-compose build'
-                    // Voeg hier stappen toe om je applicatie te bouwen (bijvoorbeeld composer install)
+                withSonarQubeEnv(installataionName: 'hive-sonar') {
+                    bat './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar'
                 }
             }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests'
-                dir(WORK_DIR) {
-                    bat 'php --version'
-                    // Voeg hier stappen toe om je tests uit te voeren (bijvoorbeeld phpunit)
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the PHP application'
-                dir(WORK_DIR) {
-                    bat 'docker-compose up -d'
-                    // Voeg hier stappen toe om je applicatie te implementeren (bijvoorbeeld Docker build en push)
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            // Opruimen na de pipeline is voltooid
-            script {
-                dir(WORK_DIR) {
-                    bat 'docker-compose down'
-                }
-            }
-        }
+        }      
     }
 }
 
