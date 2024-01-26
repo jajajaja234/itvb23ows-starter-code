@@ -1,53 +1,29 @@
-pipeline {
+pipeline{
     agent any
-
     environment {
-        // Definieer de locatie eenmaal bovenaan de pipeline
-        WORK_DIR = 'C:\\Users\\Luc\\Documents\\hanze-ICT\\Ontwikkelstraten\\itvb23ows-starter-code'
+        PATH = "$PATH:C:/Program Files/apache-maven-3.9.6/bin"
     }
-
-    stages {
-        
-        stage('Build') {
-            steps {
-                echo 'Building the PHP application'
-                dir(WORK_DIR) {
-                    bat 'docker-compose build'
-                    // Voeg hier stappen toe om je applicatie te bouwen (bijvoorbeeld composer install)
-                }
+    stages{
+       stage('GetCode'){
+            steps{
+                git branch: 'master', url: 'https://github.com/jajajaja234/itvb23ows-starter-code.git'
             }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests'
-                dir(WORK_DIR) {
-                    bat 'php --version'
-                    // Voeg hier stappen toe om je tests uit te voeren (bijvoorbeeld phpunit)
-                }
+         }        
+       stage('Build'){
+            steps{
+                bat 'mvn clean package'
             }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the PHP application'
-                dir(WORK_DIR) {
-                    bat 'docker-compose up -d'
-                    // Voeg hier stappen toe om je applicatie te implementeren (bijvoorbeeld Docker build en push)
-                }
-            }
-        }
+         }
+        stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.0';
+        steps{
+        withSonarQubeEnv('hive-sonar') { 
+        // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+        bat "mvn sonar:sonar"
     }
-
-    post {
-        always {
-            // Opruimen na de pipeline is voltooid
-            script {
-                dir(WORK_DIR) {
-                    bat 'docker-compose down'
-
-                }
-            }
         }
+        }
+       
     }
 }
