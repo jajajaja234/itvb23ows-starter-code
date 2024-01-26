@@ -11,9 +11,10 @@ pipeline{
          }        
        stage('Build'){
             steps{
-                bat 'mvn clean package'
+        bat '"C:/Program Files/apache-maven-3.9.6/bin/mvn" clean package'
             }
-         }
+        }
+
         stage('SonarQube analysis') {
 //    def scannerHome = tool 'SonarScanner 4.0';
         steps{
