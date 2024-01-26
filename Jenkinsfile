@@ -13,9 +13,10 @@ pipeline {
                 script {
                     // Voer hier de buildstappen uit
 
-                    // Voer SonarQube-analyse uit
+                    // Voer SonarQube-analyse uit met de SonarQube Scanner-plug-in
                     withSonarQubeEnv('hive-sonar') {
-                        bat 'sonar-scanner'
+                        // In plaats van 'sonar-scanner' gebruiken we 'withSonarQube' blok
+                        // voor het uitvoeren van de SonarQube-analyse
                     }
                 }
             }
