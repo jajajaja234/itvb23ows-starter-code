@@ -6,7 +6,7 @@ pipeline{
     stages{
        stage('GetCode'){
             steps{
-                git branch: 'master', url: 'https://github.com/jajajaja234/itvb23ows-starter-code.git'
+                git branch: 'main', url: 'https://github.com/jajajaja234/itvb23ows-starter-code.git'
             }
          }        
        stage('Build'){
