@@ -1,36 +1,53 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                script {
-                    // Checkout the code from GitHub
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/jajajaja234/itvb23ows-starter-code.git']]])
-                }
-            }
-        }
+    environment {
+        // Definieer de locatie eenmaal bovenaan de pipeline
+        WORK_DIR = 'C:\\Users\\Luc\\Documents\\hanze-ICT\\Ontwikkelstraten\\itvb23ows-starter-code'
+    }
 
+    stages {
+        
         stage('Build') {
             steps {
-                // Voeg hier eventuele buildstappen toe
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                script {
-                    // Voer SonarQube-analyse uit
-                    withSonarQubeEnv(installationName: 'hive-sonar') {
-                        bat 'msbuild.exe /t:Rebuild'  // Voeg hier je build commando toe, bijv. msbuild
-                        bat 'SonarScanner.MSBuild.exe begin /k:"project-key" /d:sonar.host.url="http://localhost:9000" /d:sonar.login="jenkins-pipeline"'
-                        bat 'msbuild.exe /t:Rebuild'  // Voeg hier opnieuw je build commando toe
-                        bat 'SonarScanner.MSBuild.exe end /d:sonar.login="jenkins-pipeline"'
-                    }
+                echo 'Building the PHP application'
+                dir(WORK_DIR) {
+                    bat 'docker-compose build'
+                    // Voeg hier stappen toe om je applicatie te bouwen (bijvoorbeeld composer install)
                 }
             }
         }
 
-        // Voeg hier andere stappen toe zoals testen, deployment, etc.
+        stage('Test') {
+            steps {
+                echo 'Running tests'
+                dir(WORK_DIR) {
+                    bat 'php --version'
+                    // Voeg hier stappen toe om je tests uit te voeren (bijvoorbeeld phpunit)
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the PHP application'
+                dir(WORK_DIR) {
+                    bat 'docker-compose up -d'
+                    // Voeg hier stappen toe om je applicatie te implementeren (bijvoorbeeld Docker build en push)
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Opruimen na de pipeline is voltooid
+            script {
+                dir(WORK_DIR) {
+                    bat 'docker-compose down'
+
+                }
+            }
+        }
     }
 }
