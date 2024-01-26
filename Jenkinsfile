@@ -8,18 +8,23 @@ pipeline {
             }
         }
 
-        stage('Build and Analyze') {
-            steps {
-                script {
-                    // Voer hier de buildstappen uit
+stage('Build and Analyze') {
+    steps {
+        script {
+            // Voer hier de stappen uit om je project te bouwen
+            // Bijvoorbeeld: bat 'mvn clean install'
 
-                    // Voer SonarQube-analyse uit met de SonarQube Scanner-plug-in
-                    withSonarQubeEnv('hive-sonar') {
-                        // In plaats van 'sonar-scanner' gebruiken we 'withSonarQube' blok
-                        // voor het uitvoeren van de SonarQube-analyse
-                    }
+            // Ga naar de Jenkins-workspace
+            dir("${WORKSPACE}") {
+                // Voer SonarQube-scanner uit
+                withSonarQubeEnv('hive-sonar') {
+                    echo "Running SonarQube analysis..."
+                    bat "sonar-scanner"
+                    }   
                 }
             }
         }
     }
 }
+}
+
