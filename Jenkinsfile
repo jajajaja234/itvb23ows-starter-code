@@ -13,7 +13,7 @@ pipeline {
                 script {
                     def scannerHome = tool 'hive-sonarqube'
                     withSonarQubeEnv('hive-sonar') {
-                        bat "${scannerHome}/bin/sonar-scanner"
+                                        bat "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=hive"
                     }
                 }
             }
