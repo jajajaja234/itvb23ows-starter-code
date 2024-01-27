@@ -137,7 +137,12 @@
             <select name="to">
                 <?php
                     foreach ($to as $pos) {
+                        if (array_sum($hand[$player]) == 11) {
+                            echo "<option value=\"$pos\">$pos</option>";
+                        }
+                        else if (neighboursAreSameColor($player, $pos, $board) == true && !(isset($board[$pos]))) {
                         echo "<option value=\"$pos\">$pos</option>";
+                        }
                     }
                 ?>
             </select>
