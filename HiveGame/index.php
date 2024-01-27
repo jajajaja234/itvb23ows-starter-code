@@ -128,7 +128,9 @@
             <select name="piece">
                 <?php
                     foreach ($hand[$player] as $tile => $ct) {
+                        if ($ct > 0) {
                         echo "<option value=\"$tile\">$tile</option>";
+                        }
                     }
                 ?>
             </select>
