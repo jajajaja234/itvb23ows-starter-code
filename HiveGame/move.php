@@ -3,6 +3,7 @@
 session_start();
 
 include_once 'util.php';
+include_once 'moveFunctions.php';
 
 $from = $_POST['from'];
 $to = $_POST['to'];
@@ -45,6 +46,16 @@ else {
             elseif ($tile[1] == "Q" || $tile[1] == "B") {
                 if (!slide($board, $from, $to))
                     $_SESSION['error'] = 'Tile must slide';
+            }
+            elseif ($tile[1] == "G") {
+                if (!validGrasshopper($board, $from, $to)) {
+                    $_SESSION['error'] = 'Unvalid move for Grasshopper'; 
+                }
+            }
+            elseif ($tile[1] == "A") {
+                    if (isPositionFullyOccupied($from, $board) == true || isPositionFullyOccupied($to, $board) == true) {
+                    $_SESSION['error'] = 'Unvalid move for Soldier-Ant'; 
+                }
             }
         }
     }
