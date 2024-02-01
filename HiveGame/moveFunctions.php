@@ -47,7 +47,7 @@ function Direction($fromExploded, $toExploded) {
     }
 }
 
-    function isPositionFullyOccupied($position, $board) {
+function isPositionFullyOccupied($position, $board) {
     $neighbours = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
 
     $positionExploded = explode(',', $position);
@@ -67,5 +67,39 @@ function Direction($fromExploded, $toExploded) {
 
     return true;
 }
-  
+
+function validSpider($board, $from, $to) {
+    $fromExploded = explode(',', $from);
+    $toExploded = explode(',', $to);
+    $direction = Direction($fromExploded, $toExploded);
+
+    if ($direction == null) {
+        return false; 
+    }
+
+    $steps = 0;
+    $currentPosition = $from;
+
+    while ($steps < 3) {
+        $p = $fromExploded[0] + $direction[0];
+        $q = $fromExploded[1] + $direction[1];
+        $nextPosition = "$p,$q";
+
+        if ($nextPosition == $to || !isset($board[$nextPosition])) {
+            $currentPosition = $nextPosition;
+            $steps++;
+
+            if (!hasNeighBour($currentPosition, $board)) {
+                return false; 
+            }
+        } else {
+            return false; 
+        }
+    }
+
+    return $currentPosition == $to;
+} 
+
+
+
 ?>

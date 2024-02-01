@@ -57,6 +57,12 @@ else {
                     $_SESSION['error'] = 'Unvalid move for Soldier-Ant'; 
                 }
             }
+            elseif ($tile[1] == "S") {
+                if (!validSpider($board, $from, $to)) {
+                    $_SESSION['error'] = 'Invalid move for Spider';
+                }
+            }
+            
         }
     }
     if (isset($_SESSION['error'])) {
