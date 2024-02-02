@@ -58,10 +58,18 @@ else {
                 }
             }
             elseif ($tile[1] == "S") {
+                $fromExploded2 = explode(',', $from);
+                $toExploded2 = explode(',', $to);
 
-                #$start = [0, 0];
+                $pathscheck = findAllPaths($board, $fromExploded2, $toExploded2);
+                if (empty($pathscheck)) {
+                    $_SESSION['error'] = 'Unvalid move for Spider'; 
+                }
+                
+/*
+                # $fromExploded2 = explode(',', $from);
                 $start = [0, -1];
-                $end = [1, 0];
+                $end = [1, 2];
                 
                 $paths = findAllPaths($board, $start, $end);
                 
@@ -71,12 +79,16 @@ else {
                         echo "[" . implode(", ", $step) . "] ";
                     }
                     echo "\n";
+                    #echo $fromExploded2;
+                    #echo $to;
                 }
 
                 if (!validSpider($board, $from, $to)) {
                     $_SESSION['error'] = 'Invalid move for Spider';
-                }
-            }
+                } 
+*/
+
+            } 
             
         }
     }

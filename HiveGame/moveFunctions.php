@@ -106,13 +106,10 @@ function validSpider($board, $from, $to) {
 
 
 function isValidMove($newLocation, $start, $path, $board) {
-    // Implementeer hier eventuele validatie voor geldige zetten op het speelveld
-    // Check 2: Niet naar de startpositie
     if ($newLocation == $start) {
         return false;
     }
  
-    // Check 2: Not revisiting a location
     if (in_array($newLocation, $path)) {
         return false;
     }
@@ -130,7 +127,6 @@ function isValidMove($newLocation, $start, $path, $board) {
 }
 
 function findAllPaths($board, $current, $destination, $path = [], $depth = 0, $maxDepth = 3) {
-   # global $GLOBALS;
     $start = $current;
  
     if ($current == $destination && count($path) == 3) {
