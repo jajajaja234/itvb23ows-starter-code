@@ -102,4 +102,67 @@ function validSpider($board, $from, $to) {
 
 
 
+
+
+
+function isValidMove($newLocation, $start, $path, $board) {
+    // Implementeer hier eventuele validatie voor geldige zetten op het speelveld
+    // Check 2: Niet naar de startpositie
+    if ($newLocation == $start) {
+        return false;
+    }
+ 
+    // Check 2: Not revisiting a location
+    if (in_array($newLocation, $path)) {
+        return false;
+    }
+
+    $newLocationString = implode(',', $newLocation);
+    if (!hasNeighBour($newLocationString, $board)) {
+        return false;
+    }
+
+    if (isset($board[$newLocationString])) {
+        return false;
+    }
+
+    return true;
+}
+
+function findAllPaths($board, $current, $destination, $path = [], $depth = 0, $maxDepth = 3) {
+   # global $GLOBALS;
+    $start = $current;
+ 
+    if ($current == $destination && count($path) == 3) {
+        return [$path];
+    }
+    
+
+    if ($depth >= $maxDepth) {
+        return [];
+    }
+
+    $allPaths = [];
+
+    foreach ($GLOBALS['OFFSETS'] as $offset) {
+        $newLocation = [$current[0] + $offset[0], $current[1] + $offset[1]];
+
+        if (isValidMove($newLocation, $start, $path, $board)) {
+            $newPath = $path;
+            $newPath[] = $newLocation;
+
+            $subPaths = findAllPaths($board, $newLocation, $destination, $newPath, $depth + 1, $maxDepth);
+
+            if (!empty($subPaths)) {
+                $allPaths = array_merge($allPaths, $subPaths);
+            }
+        }
+    }
+
+    return $allPaths;
+} 
+
+
+
+
 ?>

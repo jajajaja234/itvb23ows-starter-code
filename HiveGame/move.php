@@ -58,6 +58,21 @@ else {
                 }
             }
             elseif ($tile[1] == "S") {
+
+                #$start = [0, 0];
+                $start = [0, -1];
+                $end = [1, 0];
+                
+                $paths = findAllPaths($board, $start, $end);
+                
+                foreach ($paths as $path) {
+                    echo "Path: ";
+                    foreach ($path as $step) {
+                        echo "[" . implode(", ", $step) . "] ";
+                    }
+                    echo "\n";
+                }
+
                 if (!validSpider($board, $from, $to)) {
                     $_SESSION['error'] = 'Invalid move for Spider';
                 }
