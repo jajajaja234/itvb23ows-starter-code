@@ -25,6 +25,17 @@
     $can_place_stone = canPlayerPlaceStone($player, $hand, $to, $board);
     $can_move_stone = canPlayerMoveStone($player, $board, $to);
 
+    // Check de winnaar of gelijkspel
+    $result = checkwin($board);
+    $winner_message = "";
+    if ($result == 1) {
+        $winner_message = "Speler 1 heeft gewonnen";
+    } elseif ($result == 2) {
+        $winner_message = "Speler 0 heeft gewonnen";
+    } elseif ($result == "draw") {
+        $winner_message = "Gelijkspel";
+    }
+    
 ?>
 <!DOCTYPE html>
 <html>

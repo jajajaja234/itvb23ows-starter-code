@@ -91,4 +91,53 @@ function canPlayerMoveStone($player, $board, $to) {
     return false;
 }
 
+
+
+function checkwin($board) {
+    $player0QueenSurrounded = false;
+    $player1QueenSurrounded = false;
+
+    // Zoek alle Q stenen op het bord
+    foreach ($board as $pos => $tile) {
+        foreach ($tile as $piece) {
+            if ($piece[1] === "Q") {
+                // Controleer of de gevonden Q stenen volledig omsingeld zijn
+                $isSurrounded = true;
+                foreach ($GLOBALS['OFFSETS'] as $offset) {
+                    error_reporting(E_ERROR | E_PARSE);
+                    $neighborPos = ($pos[0] + $offset[0]) . ',' . ($pos[1] + $offset[1]);
+                    if (!isset($board[$neighborPos])) {
+                        $isSurrounded = false;
+                        break;
+                    }
+                }
+                // Bepaal of de Q steen van speler 0 of speler 1 omsingeld is
+                if ($isSurrounded) {
+                    if ($tile[0][0] === 0) {
+                        $player0QueenSurrounded = true;
+                    } elseif ($tile[0][0] === 1) {
+                        $player1QueenSurrounded = true;
+                    }
+                }
+            }
+        }
+    }
+
+    // Bepaal de winnaar op basis van de omsingelde Q stenen
+    if (!$player0QueenSurrounded && !$player1QueenSurrounded) {
+        return 0; // Geen winnaar
+    } elseif ($player0QueenSurrounded && !$player1QueenSurrounded) {
+        return 1; // Speler 1 heeft gewonnen
+    } elseif (!$player0QueenSurrounded && $player1QueenSurrounded) {
+        return 2; // Speler 0 heeft gewonnen
+    } else {
+        return "draw"; // Gelijkspel
+    }
+}
+
+
+
+
+
+
 ?>
