@@ -101,10 +101,6 @@ function validSpider($board, $from, $to) {
 } 
 
 
-
-
-
-
 function isValidMove($newLocation, $start, $path, $board) {
     if ($newLocation == $start) {
         return false;
@@ -157,8 +153,6 @@ function findAllPaths($board, $current, $destination, $path = [], $depth = 0, $m
 
     return $allPaths;
 } 
-
-
 
 
 ?>

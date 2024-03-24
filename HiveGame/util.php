@@ -1,6 +1,8 @@
 <?php
+include_once 'moveFunctions.php';
 
 $GLOBALS['OFFSETS'] = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
+
 
 function isNeighbour($a, $b) {
     $a = explode(',', $a);
@@ -43,6 +45,50 @@ function slide($board, $from, $to) {
     #if (!$board[$common[0]] && !$board[$common[1]] && !$board[$from] && !$board[$to]) return false;
     if (!isset($board[$common[0]]) && !isset($board[$common[1]]) && !isset($board[$from]) && !isset($board[$to])) return false;
     return min(len($board[$common[0]]), len($board[$common[1]])) <= max(len($board[$from]), len($board[$to]));
+}
+
+function canPlayerPlaceStone($player, $hand, $to, $board) {
+    foreach ($hand[$player] as $tile => $ct) {
+        if ($ct > 0) {
+            foreach ($to as $pos) {
+                if (array_sum($hand[$player]) == 11) {
+                    return true;
+                } elseif (neighboursAreSameColor($player, $pos, $board) && !(isset($board[$pos]))) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+function canPlayerMoveStone($player, $board, $to) {
+    foreach (array_keys($board) as $pos) {
+        if ($board[$pos][0][0] == $player) {
+            foreach ($to as $new_pos) {
+                $tile = $board[$pos][count($board[$pos])-1];
+                if (isset($board[$new_pos])) continue;
+                if ($tile[1] == "Q" || $tile[1] == "B") {
+                    if (slide($board, $pos, $new_pos)) {
+                        return true;
+                    }
+                } elseif ($tile[1] == "G") {
+                    if (validGrasshopper($board, $pos, $new_pos)) {
+                        return true;
+                    }
+                } elseif ($tile[1] == "S") {
+                    if (validSpider($board, $pos, $new_pos)) {
+                        return true;
+                    }
+                } elseif ($tile[1] == "A") {
+                    if (!isPositionFullyOccupied($new_pos, $board)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }
 
 ?>

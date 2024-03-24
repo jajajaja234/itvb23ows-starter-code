@@ -20,6 +20,11 @@
     }
     $to = array_unique($to);
     if (!count($to)) $to[] = '0,0';
+
+    # pass check
+    $can_place_stone = canPlayerPlaceStone($player, $hand, $to, $board);
+    $can_move_stone = canPlayerMoveStone($player, $board, $to);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -168,7 +173,12 @@
             <input type="submit" value="Move">
         </form>
         <form method="post" action="pass.php">
-            <input type="submit" value="Pass">
+            <?php if (!$can_place_stone && !$can_move_stone): ?>
+                <input type="submit" value="Pass">
+            <?php else: ?>
+                <input type="submit" value="Pass" disabled>
+                <p>[can't pass]: valid move available</p>
+            <?php endif; ?>
         </form>
         <form method="post" action="restart.php">
             <input type="submit" value="Restart">

@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     environment {
-        // Definieer de locatie eenmaal bovenaan de pipeline
         WORK_DIR = 'C:\\Users\\Luc\\Documents\\hanze-ICT\\Ontwikkelstraten\\itvb23ows-starter-code'
     }
 

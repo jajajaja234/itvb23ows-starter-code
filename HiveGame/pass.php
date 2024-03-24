@@ -11,4 +11,5 @@ $_SESSION['player'] = 1 - $_SESSION['player'];
 
 header('Location: index.php');
 
+
 ?>
