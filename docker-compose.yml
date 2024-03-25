@@ -5,7 +5,6 @@ services:
     build: .
     volumes:
       - ./HiveGame:/var/www/html
-    #  - .:/var/www/html
     ports:
       - 8000:80
     networks:
@@ -29,6 +28,13 @@ services:
       - PMA_ARBITRARY=1
     networks:
       - my_network
+
+  app-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile.Al
+    ports:
+      - "5000:5000"
 
 networks:
   my_network:
