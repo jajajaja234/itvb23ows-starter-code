@@ -1,6 +1,5 @@
 <?php
-include_once 'util.php';
-
+include_once '../util.php';
 
 #Winnaar Unit Tests
 function testNoWinner() {

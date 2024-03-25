@@ -71,29 +71,6 @@ else {
                 if (empty($pathscheck)) {
                     $_SESSION['error'] = 'Unvalid move for Spider'; 
                 }
-                
-/*
-                # $fromExploded2 = explode(',', $from);
-                $start = [0, -1];
-                $end = [1, 2];
-                
-                $paths = findAllPaths($board, $start, $end);
-                
-                foreach ($paths as $path) {
-                    echo "Path: ";
-                    foreach ($path as $step) {
-                        echo "[" . implode(", ", $step) . "] ";
-                    }
-                    echo "\n";
-                    #echo $fromExploded2;
-                    #echo $to;
-                }
-
-                if (!validSpider($board, $from, $to)) {
-                    $_SESSION['error'] = 'Invalid move for Spider';
-                } 
-*/
-
             } 
             
         }

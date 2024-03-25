@@ -135,9 +135,4 @@ function checkwin($board) {
     }
 }
 
-
-
-
-
-
 ?>
