@@ -38,7 +38,7 @@ pipeline {
                 echo 'Running tests'
                 dir(WORK_DIR) {
                     bat 'php --version'
-                    bat 'php -d include_path="HiveGame/:." HiveGame/Tests/wintest.php'
+                    bat 'php HiveGame/Tests/wintest.php' 
                     // Voeg hier stappen toe om je tests uit te voeren (bijvoorbeeld phpunit)
                 }
             }
