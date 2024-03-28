@@ -38,7 +38,7 @@ pipeline {
                 echo 'Running tests'
                 dir(WORK_DIR) {
                     bat 'php --version'
-                    bat 'php HiveGame/Tests/wintest.php' 
+                    bat 'php HiveGame/Tests/IsQueenPlaced.php' 
                     // Voeg hier stappen toe om je tests uit te voeren (bijvoorbeeld phpunit)
                 }
             }
