@@ -48,7 +48,7 @@ function testWinnerPlayer0() {
         "-1,1" => [[1, "A"]],
         "1,-1" => [[0, "G"]],
     ];
-
+  
     $result = checkwin($board);
     if ($result == 2) {
         echo "Test Winner is Player 0: Passed<br>";
