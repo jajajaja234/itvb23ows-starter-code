@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$db = include 'database.php';
+$db = include_once 'database.php';
 
 // Zoek de laatste zet in de database
 $stmt = $db->prepare('SELECT * FROM moves WHERE game_id = ? ORDER BY id DESC LIMIT 1');
@@ -21,5 +21,3 @@ if ($result) {
 }
 
 header('Location: index.php'); 
-
-?>

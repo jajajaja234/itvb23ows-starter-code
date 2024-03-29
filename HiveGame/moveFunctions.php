@@ -153,6 +153,3 @@ function findAllPaths($board, $current, $destination, $path = [], $depth = 0, $m
 
     return $allPaths;
 } 
-
-
-?>

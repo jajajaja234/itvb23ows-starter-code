@@ -17,7 +17,3 @@ $db->prepare('INSERT INTO games VALUES ()')->execute();
 $_SESSION['game_id'] = $db->insert_id;
 
 header('Location: index.php'); 
-
-
-
-?>

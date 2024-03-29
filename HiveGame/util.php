@@ -131,4 +131,3 @@ function checkwin($board) {
         return "draw"; // Gelijkspel
     }
 }
-
