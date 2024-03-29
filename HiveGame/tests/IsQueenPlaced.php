@@ -21,7 +21,6 @@ function runTests() {
         $expected = $testCase["expected"];
         $status = $result === $expected ? "Passed" : "Failed";
         echo "Test case: Piece = {$testCase["piece"]}, Hand = " . json_encode($testCase["hand"]) . " => $status<br>";
-        die;
     }
 }
 

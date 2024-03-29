@@ -37,12 +37,12 @@ pipeline {
                 echo 'Running tests'
                 dir(WORK_DIR) {
                     bat 'php --version'
-                    //bat 'php HiveGame/Tests/DropdownTest.php'
+                    bat 'php HiveGame/Tests/DropdownTest.php'
                     bat 'php HiveGame/Tests/IsQueenPlaced.php' 
-                    //bat 'php HiveGame/Tests/MovinPiecesTest.php' 
-                    //bat 'php HiveGame/Tests/PassTest.php' 
-                    //bat 'php HiveGame/Tests/QueenMoveTest.php' 
-                    //bat 'php HiveGame/Tests/WinTest.php' 
+                    bat 'php HiveGame/Tests/MovinPiecesTest.php' 
+                    bat 'php HiveGame/Tests/PassTest.php' 
+                    bat 'php HiveGame/Tests/QueenMoveTest.php' 
+                    bat 'php HiveGame/Tests/WinTest.php' 
                 }
             }
         }
