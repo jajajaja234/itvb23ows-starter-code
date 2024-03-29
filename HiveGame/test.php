@@ -102,4 +102,3 @@ echo "Ant:<br>";
 validAntTest($board, $testCasesAnt);
 echo "Spider:<br>";
 validSpiderTest($board, $testCasesSpider);
-?>
