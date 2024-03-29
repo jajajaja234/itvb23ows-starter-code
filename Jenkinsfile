@@ -37,6 +37,18 @@ pipeline {
                 echo 'Running tests'
                 dir(WORK_DIR) {
                     bat 'php --version'
+
+                    // Het huidige include pad ophalen
+                    def currentIncludePath = bat(script: 'php -r "echo ini_get(\'include_path\');"').trim()
+                    
+                    // Het pad naar de map waarin de include-bestanden zich bevinden toevoegen
+                    def newIncludePath = "${currentIncludePath};HiveGame"
+                    
+                    // Het nieuwe include pad instellen
+                    bat "php -d include_path=\"${newIncludePath}\" --version"
+
+
+
                     bat 'php HiveGame/Tests/DropdownTest.php'
                     bat 'php HiveGame/Tests/IsQueenPlaced.php' 
                     bat 'php HiveGame/Tests/MovinPiecesTest.php' 
